@@ -4,21 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fullstack Learning</title>
+    <!-- internal css -->
+    <style>
+        h2 {
+            color: blue;
+        }
+        p {
+            color: brown;
+        }
+        #head-3{
+            color: green;
+            background-color: yellow;
+        }
+        .head-4{
+            color: orange;
+            background-color: lightgray;
+        }
+    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>  
     <h3>Welcome to Fullstack Learning</h3>
     <br>   
-
-    <h1>Fullstack Development</h1>
+<!-- inline css -->
+    <h1 style="color: red;">Fullstack Development</h1>
     <h2>Fullstack Development</h2>
-    <h3>Fullstack Development</h3>
-    <h4>Fullstack Development</h4>
-    <h5>Fullstack Development</h5>
+    <h3 id="head-3">Fullstack Development</h3>
+    <h4 class="head-4">Fullstack Development</h4>
+    <h5 class="head-4">Fullstack Development</h5>
     <h6>Fullstack Development</h6>
     <br>
     <p>This is a paragraph of text that provides information about Fullstack Development. It can
     include details about the technologies used, best practices, and other relevant information.</p>
-
+<img src="https://th.bing.com/th/id/OIP.Gc1UQAIuse_NJ4-DQnFO-wHaNK?w=187&h=333&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="img">
+<br>
     <a href="https://portfolio-tau-roan-46.vercel.app/" target="_blank">Portfolio website </a>
     <br>
     <a href="https://github.com/Basiibnumoideen">git hub</a>"
@@ -69,6 +88,40 @@
             <td>Row 2, Cell 2</td>
         </tr>
     </table>
+    <br>
+    <form action="">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name">
+        <br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter youremail" required>
+        <br><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <br><br>
+        <label for="DOB" id="DOB">DOB:</label>
+        <input type="date" id="DOB" name="DOB">
+        <br><br>
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        <br><br>
+
+        <label for="country">Country:</label>
+        <select id="country" name="country">
+            <option value="india">India</option>
+            <option value="usa">USA</option>
+            <option value="uk">UK</option>
+            <option value="canada">Canada</option>
+        </select>
+        <br><br>
+        
+
+        <button>register now </button>
+        
+    </form>
 </body>
 </html>
 <!--  -->
