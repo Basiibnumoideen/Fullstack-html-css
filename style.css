@@ -2,3 +2,31 @@
 h6{
     color: purple;
 }
+.card {
+    background-color: lightblue;
+    border: 2px solid black;
+    padding: 10px;
+    /* padding left ,right ,top ,bottom */
+    
+    margin: 10px;
+    /* space between cards */
+    width: 200px;
+    border-radius: 10px;
+   
+}
+h3{
+    color: blue;
+    font-family: 'Oswald', sans-serif;
+}
+
+p{
+    color: rgb(0, 0, 0);
+    font-family: 'Yuyu Short', cursive;
+    line-height: 1.5;
+    font-weight: 400;
+}
+.imgdiv {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
