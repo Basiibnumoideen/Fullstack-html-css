@@ -30,3 +30,56 @@ p{
     height: auto;
     border-radius: 10px;
 }
+
+
+/* css postion */
+.parent {
+    position: relative;
+    width: 500px;
+    height: 500px;
+    background-color: lightgray;
+}
+.child-1 {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(255, 0, 0);
+}
+.child-2 {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    width: 100px;
+    height: 100px;
+    background-color: rgb(13, 0, 255);
+}
+
+/* flexbox */
+.card-2{
+    width: 200px;
+    height: 100px;
+    background-color: lightgreen;
+}
+.card-3{
+    width: 200px;
+    height: 100px;
+    background-color: chocolate;
+}
+.card-4{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(255, 0, 0);
+}
+.home{
+    display:flex;
+    flex-direction: row;
+    /* when give flex defult flex-direction: row */
+    background-color: lightgray;
+    justify-content: space-around;
+    /* justify-content: -flex-start,flex-end ,center,space-between,space-around */
+    gap: 30px;
+    height: 200px;
+    align-items: center;
+}
