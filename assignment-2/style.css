@@ -1,0 +1,24 @@
+body{
+    font-family: Arial, sans-serif;
+}
+
+.hero img{
+    max-height:350px;
+}
+
+.card{
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+footer i{
+    cursor:pointer;
+    font-size:20px;
+}
+
+footer i:hover{
+    color:#0d6efd;
+}
