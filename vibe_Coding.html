@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content="Premium Portfolio - Creative Full Stack Developer">
+	<title>Premium Portfolio</title>
+	<!-- Bootstrap v5.3.8 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+	<!-- Bootstrap Icons -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+	<style>
+		:root {
+			--primary: #06b6d4;
+			--primary-dark: #0891b2;
+			--secondary: #7c3aed;
+			--bg-dark: #0f1724;
+			--bg-darker: #071026;
+			--nav-bg: rgba(11, 18, 32, 0.8);
+			--text: #e6eef6;
+			--text-muted: rgba(230, 238, 246, 0.6);
+			--border: rgba(255, 255, 255, 0.04);
+			--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		}
+
+		* {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+
+		html {
+			scroll-behavior: smooth;
+		}
+
+		body {
+			font-family: 'Inter', 'Segoe UI', Helvetica, Arial, sans-serif;
+			background: linear-gradient(180deg, #071026 0%, #081827 100%);
+			color: var(--text);
+			min-height: 100vh;
+			background-attachment: fixed;
+		}
+
+		body.dark-mode {
+			--bg-dark: #0a0f1b;
+			--bg-darker: #050a12;
+			--nav-bg: rgba(10, 15, 27, 0.9);
+			--text: #e6eef6;
+			--text-muted: rgba(230, 238, 246, 0.5);
+		}
+
+		/* Scroll Progress Bar */
+		.scroll-progress {
+			position: fixed;
+			top: 0;
+			left: 0;
+			height: 3px;
+			background: linear-gradient(90deg, var(--primary), var(--secondary));
+			width: 0%;
+			z-index: 9999;
+			transition: width 0.1s ease;
+		}
+
+		/* Premium Navbar */
+		.navbar-premium {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			background: var(--nav-bg);
+			backdrop-filter: blur(8px);
+			border-bottom: 1px solid var(--border);
+			padding: 0.875rem 0;
+			z-index: 1030;
+			box-shadow: 0 2px 16px rgba(0, 0, 0, 0.1);
+			transition: var(--transition);
+		}
+
+		.navbar-premium.hide {
+			transform: translateY(-100%);
+		}
+
+		.navbar-premium.scroll-active {
+			background: rgba(11, 18, 32, 0.95);
+			box-shadow: 0 4px 24px rgba(6, 182, 212, 0.08);
+		}
+
+		/* Brand Section */
+		.brand-section {
+			display: flex;
+			align-items: center;
+			gap: 0.875rem;
+			text-decoration: none;
+			color: var(--text);
+			transition: var(--transition);
+		}
+
+		.brand-section:hover {
+			color: var(--primary);
+		}
+
+		.logo-badge {
+			width: 44px;
+			height: 44px;
+			border-radius: 12px;
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 700;
+			font-size: 1.1rem;
+			color: #fff;
+			box-shadow: 0 4px 16px rgba(6, 182, 212, 0.2);
+			transition: var(--transition);
+		}
+
+		.brand-section:hover .logo-badge {
+			transform: scale(1.08) rotate(3deg);
+			box-shadow: 0 6px 24px rgba(6, 182, 212, 0.4);
+		}
+
+		.brand-text h3 {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin: 0;
+			line-height: 1.2;
+		}
+
+		.brand-text p {
+			font-size: 0.75rem;
+			color: var(--text-muted);
+			margin: 0;
+			line-height: 1;
+			letter-spacing: 0.5px;
+			text-transform: uppercase;
+		}
+
+		/* Navigation Links */
+		.nav-links {
+			display: flex;
+			gap: 0.5rem;
+			align-items: center;
+			list-style: none;
+		}
+
+		.nav-links a {
+			color: var(--text);
+			text-decoration: none;
+			padding: 0.625rem 1rem;
+			border-radius: 8px;
+			font-size: 0.95rem;
+			font-weight: 500;
+			transition: var(--transition);
+			position: relative;
+			overflow: hidden;
+		}
+
+		.nav-links a::before {
+			content: '';
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 0;
+			height: 2px;
+			background: linear-gradient(90deg, var(--primary), var(--secondary));
+			transition: width 0.3s ease;
+		}
+
+		.nav-links a:hover::before,
+		.nav-links a.active::before {
+			width: 100%;
+		}
+
+		.nav-links a:hover {
+			color: var(--primary);
+			background: rgba(6, 182, 212, 0.08);
+		}
+
+		.nav-links a.active {
+			color: var(--primary);
+		}
+
+		/* Action Buttons */
+		.nav-actions {
+			display: flex;
+			gap: 0.75rem;
+			align-items: center;
+		}
+
+		.btn-icon {
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 1px solid var(--border);
+			background: transparent;
+			color: var(--text);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: var(--transition);
+			font-size: 1.1rem;
+		}
+
+		.btn-icon:hover {
+			background: rgba(6, 182, 212, 0.1);
+			color: var(--primary);
+			border-color: var(--primary);
+			box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+		}
+
+		.btn-primary-nav {
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			color: #fff;
+			border: none;
+			padding: 0.625rem 1.5rem;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 0.95rem;
+			cursor: pointer;
+			transition: var(--transition);
+			box-shadow: 0 4px 12px rgba(6, 182, 212, 0.2);
+			white-space: nowrap;
+		}
+
+		.btn-primary-nav:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+			color: #fff;
+		}
+
+		.btn-secondary-nav {
+			background: transparent;
+			color: var(--text);
+			border: 1.5px solid var(--border);
+			padding: 0.625rem 1.5rem;
+			border-radius: 50px;
+			font-weight: 600;
+			font-size: 0.95rem;
+			cursor: pointer;
+			transition: var(--transition);
+		}
+
+		.btn-secondary-nav:hover {
+			background: rgba(6, 182, 212, 0.1);
+			border-color: var(--primary);
+			color: var(--primary);
+		}
+
+		/* Hamburger Menu Toggle */
+		.hamburger {
+			display: none;
+			width: 40px;
+			height: 40px;
+			border: none;
+			background: transparent;
+			color: var(--text);
+			cursor: pointer;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+			gap: 5px;
+			transition: var(--transition);
+		}
+
+		.hamburger:focus {
+			outline: 2px solid var(--primary);
+			outline-offset: 2px;
+		}
+
+		.hamburger span {
+			width: 24px;
+			height: 2px;
+			background: currentColor;
+			border-radius: 1px;
+			transition: var(--transition);
+		}
+
+		.hamburger.active span:nth-child(1) {
+			transform: translateY(8px) rotate(45deg);
+		}
+
+		.hamburger.active span:nth-child(2) {
+			opacity: 0;
+		}
+
+		.hamburger.active span:nth-child(3) {
+			transform: translateY(-8px) rotate(-45deg);
+		}
+
+		/* Offcanvas Premium */
+		.offcanvas-premium {
+			background: rgba(11, 18, 32, 0.95);
+			backdrop-filter: blur(12px);
+			border-left: 1px solid var(--border);
+			border-radius: 16px 0 0 16px;
+		}
+
+		.offcanvas-premium .btn-close {
+			filter: invert(1);
+		}
+
+		.offcanvas-header {
+			border-bottom: 1px solid var(--border);
+			padding: 1.25rem;
+		}
+
+		.offcanvas-menu-item {
+			padding: 1rem 1.25rem;
+			margin: 0.5rem 1rem;
+			border-radius: 12px;
+			cursor: pointer;
+			transition: var(--transition);
+			display: flex;
+			align-items: center;
+			gap: 1rem;
+			color: var(--text);
+			text-decoration: none;
+		}
+
+		.offcanvas-menu-item:hover {
+			background: rgba(6, 182, 212, 0.1);
+			color: var(--primary);
+			transform: translateX(4px);
+		}
+
+		.offcanvas-menu-item i {
+			font-size: 1.25rem;
+			transition: var(--transition);
+		}
+
+		.offcanvas-menu-item:hover i {
+			transform: rotate(5deg) scale(1.1);
+		}
+
+		.menu-item-text h5 {
+			font-size: 0.95rem;
+			font-weight: 600;
+			margin: 0;
+			font-family: 'Outfit', sans-serif;
+		}
+
+		.menu-item-text p {
+			font-size: 0.8rem;
+			color: var(--text-muted);
+			margin: 0;
+		}
+
+		/* Offcanvas Social */
+		.offcanvas-social {
+			display: flex;
+			gap: 0.75rem;
+			padding: 1.25rem;
+			border-top: 1px solid var(--border);
+			justify-content: center;
+			margin-top: 1rem;
+		}
+
+		.social-btn {
+			width: 44px;
+			height: 44px;
+			border-radius: 50%;
+			border: 1.5px solid var(--border);
+			background: transparent;
+			color: var(--text);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+			transition: var(--transition);
+			font-size: 1.1rem;
+		}
+
+		.social-btn:hover {
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			border-color: var(--primary);
+			color: #fff;
+			transform: translateY(-4px);
+			box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+		}
+
+		/* CTA Card */
+		.cta-card {
+			background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(124, 58, 237, 0.1));
+			border: 1px solid var(--border);
+			border-radius: 12px;
+			padding: 1.5rem;
+			margin: 1rem;
+			text-align: center;
+		}
+
+		.cta-card h5 {
+			font-family: 'Outfit', sans-serif;
+			font-size: 1.1rem;
+			font-weight: 600;
+			margin-bottom: 1rem;
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		.cta-card-buttons {
+			display: flex;
+			flex-direction: column;
+			gap: 0.75rem;
+		}
+
+		.cta-card-buttons button {
+			padding: 0.75rem;
+			border-radius: 8px;
+			border: none;
+			font-weight: 600;
+			cursor: pointer;
+			transition: var(--transition);
+			font-size: 0.9rem;
+		}
+
+		.cta-card-buttons .btn-hire {
+			background: linear-gradient(135deg, var(--primary), var(--secondary));
+			color: #fff;
+		}
+
+		.cta-card-buttons .btn-hire:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 6px 16px rgba(6, 182, 212, 0.3);
+		}
+
+		.cta-card-buttons .btn-resume {
+			background: transparent;
+			color: var(--text);
+			border: 1.5px solid var(--border);
+		}
+
+		.cta-card-buttons .btn-resume:hover {
+			background: rgba(6, 182, 212, 0.1);
+			border-color: var(--primary);
+			color: var(--primary);
+		}
+
+		/* Dark Mode Toggle */
+		.theme-toggle {
+			width: 50px;
+			height: 26px;
+			border-radius: 13px;
+			border: 1.5px solid var(--border);
+			background: transparent;
+			cursor: pointer;
+			position: relative;
+			transition: var(--transition);
+			display: flex;
+			align-items: center;
+			padding: 0 2px;
+		}
+
+		.theme-toggle.active {
+			background: rgba(6, 182, 212, 0.2);
+			border-color: var(--primary);
+		}
+
+		.theme-toggle-circle {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			background: var(--text);
+			position: absolute;
+			left: 3px;
+			transition: var(--transition);
+		}
+
+		.theme-toggle.active .theme-toggle-circle {
+			left: 27px;
+		}
+
+		/* Main Content */
+		body {
+			padding-top: 80px;
+		}
+
+		main {
+			padding: 3rem 1.5rem;
+		}
+
+		section {
+			margin-bottom: 3rem;
+		}
+
+		section h1 {
+			font-family: 'Outfit', sans-serif;
+			font-size: clamp(1.75rem, 5vw, 3.5rem);
+			font-weight: 700;
+			margin-bottom: 1rem;
+			background: linear-gradient(135deg, var(--text), var(--primary));
+			-webkit-background-clip: text;
+			-webkit-text-fill-color: transparent;
+			background-clip: text;
+		}
+
+		section p {
+			color: var(--text-muted);
+			font-size: clamp(1rem, 2vw, 1.125rem);
+			line-height: 1.6;
+			max-width: 600px;
+		}
+
+		/* Responsive Design */
+		@media (max-width: 991px) {
+			.nav-links {
+				display: none;
+			}
+
+			.btn-secondary-nav {
+				display: none;
+			}
+
+			.hamburger {
+				display: flex;
+			}
+
+			main {
+				padding: 2rem 1rem;
+			}
+		}
+
+		@media (max-width: 576px) {
+			.navbar-premium {
+				padding: 0.75rem 1rem;
+			}
+
+			.brand-text h3 {
+				font-size: 1rem;
+			}
+
+			.brand-text p {
+				font-size: 0.7rem;
+			}
+
+			.btn-primary-nav {
+				padding: 0.5rem 1.25rem;
+				font-size: 0.85rem;
+			}
+
+			main {
+				padding: 2rem 1rem;
+			}
+
+			section h1 {
+				font-size: 1.5rem;
+			}
+
+			section p {
+				font-size: 0.95rem;
+			}
+		}
+
+		/* Animations */
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-10px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		@keyframes slideIn {
+			from {
+				opacity: 0;
+				transform: translateX(20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+
+		.navbar-premium {
+			animation: fadeIn 0.4s ease;
+		}
+
+		.nav-links a {
+			animation: fadeIn 0.4s ease backwards;
+		}
+
+		.nav-links a:nth-child(1) { animation-delay: 0.1s; }
+		.nav-links a:nth-child(2) { animation-delay: 0.15s; }
+		.nav-links a:nth-child(3) { animation-delay: 0.2s; }
+		.nav-links a:nth-child(4) { animation-delay: 0.25s; }
+		.nav-links a:nth-child(5) { animation-delay: 0.3s; }
+		.nav-links a:nth-child(6) { animation-delay: 0.35s; }
+		.nav-links a:nth-child(7) { animation-delay: 0.4s; }
+	</style>
+</head>
+<body>
+	<!-- Scroll Progress Bar -->
+	<div class="scroll-progress"></div>
+
+	<!-- Premium Navbar -->
+	<nav class="navbar-premium" role="navigation" aria-label="Main navigation">
+		<div class="container-fluid d-flex align-items-center justify-content-between">
+			<!-- Brand Section -->
+			<a href="#" class="brand-section">
+				<div class="logo-badge">JD</div>
+				<div class="brand-text">
+					<h3>Basi</h3>
+					<p>Full Stack Developer</p>
+				</div>
+			</a>
+
+			<!-- Navigation Links (Desktop) -->
+			<ul class="nav-links ms-auto me-auto">
+				<li><a href="#home" class="active">Home</a></li>
+				<li><a href="#about">About</a></li>
+				<li><a href="#skills">Skills</a></li>
+				<li><a href="#services">Services</a></li>
+				<li><a href="#portfolio">Portfolio</a></li>
+				<li><a href="#experience">Experience</a></li>
+				<li><a href="#blog">Blog</a></li>
+				<li><a href="#contact">Contact</a></li>
+			</ul>
+
+			<!-- Action Buttons (Desktop) -->
+			<div class="nav-actions">
+				<a href="https://github.com" class="btn-icon" title="GitHub" aria-label="Visit GitHub">
+					<i class="bi bi-github"></i>
+				</a>
+				<a href="https://linkedin.com" class="btn-icon" title="LinkedIn" aria-label="Visit LinkedIn">
+					<i class="bi bi-linkedin"></i>
+				</a>
+				<a href="mailto:john@example.com" class="btn-icon" title="Email" aria-label="Send email">
+					<i class="bi bi-envelope"></i>
+				</a>
+				<button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+					<div class="theme-toggle-circle"></div>
+				</button>
+				<button class="btn-secondary-nav">Download CV</button>
+				<button class="btn-primary-nav">Hire Me</button>
+			</div>
+
+			<!-- Hamburger Menu (Mobile) -->
+			<button class="hamburger" id="hamburger" aria-expanded="false" aria-controls="offcanvasMenu" aria-label="Toggle menu">
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+	</nav>
+
+	<!-- Offcanvas Mobile Menu -->
+	<div class="offcanvas offcanvas-end offcanvas-premium" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
+		<div class="offcanvas-header">
+			<h5 id="offcanvasMenuLabel" class="fs-6">
+				<i class="bi bi-lightning-charge-fill" style="color: var(--primary);"></i> Menu
+			</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu"></button>
+		</div>
+		<div class="offcanvas-body p-0">
+			<nav>
+				<a href="#home" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-house-fill"></i>
+					<div class="menu-item-text">
+						<h5>Home</h5>
+						<p>Return to landing page</p>
+					</div>
+				</a>
+				<a href="#about" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-person-fill"></i>
+					<div class="menu-item-text">
+						<h5>About</h5>
+						<p>Know more about me</p>
+					</div>
+				</a>
+				<a href="#skills" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-code-slash"></i>
+					<div class="menu-item-text">
+						<h5>Skills</h5>
+						<p>Technologies I use</p>
+					</div>
+				</a>
+				<a href="#services" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-briefcase-fill"></i>
+					<div class="menu-item-text">
+						<h5>Services</h5>
+						<p>What I can offer</p>
+					</div>
+				</a>
+				<a href="#portfolio" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-folder-fill"></i>
+					<div class="menu-item-text">
+						<h5>Portfolio</h5>
+						<p>Recent projects</p>
+					</div>
+				</a>
+				<a href="#experience" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-star-fill"></i>
+					<div class="menu-item-text">
+						<h5>Experience</h5>
+						<p>My journey</p>
+					</div>
+				</a>
+				<a href="#blog" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-pen-fill"></i>
+					<div class="menu-item-text">
+						<h5>Blog</h5>
+						<p>Latest articles</p>
+					</div>
+				</a>
+				<a href="#contact" class="offcanvas-menu-item" data-bs-dismiss="offcanvas">
+					<i class="bi bi-chat-dots-fill"></i>
+					<div class="menu-item-text">
+						<h5>Contact</h5>
+						<p>Let's work together</p>
+					</div>
+				</a>
+			</nav>
+
+			<!-- Social Links -->
+			<div class="offcanvas-social">
+				<a href="https://github.com" class="social-btn" title="GitHub" aria-label="Visit GitHub">
+					<i class="bi bi-github"></i>
+				</a>
+				<a href="https://linkedin.com" class="social-btn" title="LinkedIn" aria-label="Visit LinkedIn">
+					<i class="bi bi-linkedin"></i>
+				</a>
+				<a href="https://instagram.com" class="social-btn" title="Instagram" aria-label="Visit Instagram">
+					<i class="bi bi-instagram"></i>
+				</a>
+				<a href="https://twitter.com" class="social-btn" title="Twitter" aria-label="Visit Twitter">
+					<i class="bi bi-twitter"></i>
+				</a>
+				<a href="mailto:john@example.com" class="social-btn" title="Email" aria-label="Send email">
+					<i class="bi bi-envelope"></i>
+				</a>
+			</div>
+
+			<!-- CTA Card -->
+			<div class="cta-card">
+				<h5>🚀 Let's Build Something Amazing</h5>
+				<div class="cta-card-buttons">
+					<button class="btn-hire" data-bs-dismiss="offcanvas">Hire Me</button>
+					<button class="btn-resume" data-bs-dismiss="offcanvas">Download Resume</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Main Content -->
+	<main>
+		<section id="home">
+			<h1>Welcome to My Premium Portfolio</h1>
+			<p>A modern, fully responsive portfolio navbar with glassmorphism, smooth animations, dark mode support, and premium styling using Bootstrap 5.3.8. Scroll to see the navbar hide/show behavior and scroll progress.</p>
+		</section>
+
+		<section id="about">
+			<h1>About Section</h1>
+			<p>This section demonstrates the smooth scrolling and scroll-aware navbar functionality. The navbar will hide when scrolling down and reappear when scrolling up for optimal screen real estate.</p>
+		</section>
+
+		<section id="skills">
+			<h1>Skills Section</h1>
+			<p>Explore the responsive design by resizing your browser. The navbar gracefully adapts to different screen sizes with a premium offcanvas mobile menu.</p>
+		</section>
+
+		<section id="services">
+			<h1>Services Section</h1>
+			<p>Try toggling the dark mode using the theme toggle button in the navbar to see the smooth transitions and color scheme changes.</p>
+		</section>
+
+		<section id="portfolio">
+			<h1>Portfolio Section</h1>
+			<p>The navigation uses Bootstrap ScrollSpy for automatic active link detection. Scroll through sections to see the active states update in the navbar.</p>
+		</section>
+
+		<section id="experience">
+			<h1>Experience Section</h1>
+			<p>All interactive elements are fully accessible with keyboard navigation, ARIA labels, and proper focus states for screen readers.</p>
+		</section>
+
+		<section id="blog">
+			<h1>Blog Section</h1>
+			<p>This navbar is production-ready with clean, maintainable code, semantic HTML5, and optimized performance across all modern browsers.</p>
+		</section>
+
+		<section id="contact">
+			<h1>Contact Section</h1>
+			<p>Feel free to customize colors, spacing, and animations to match your personal brand. All values are defined in CSS variables for easy maintenance.</p>
+		</section>
+	</main>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	
+	<script>
+		// Dark Mode Toggle
+		const themeToggle = document.getElementById('themeToggle');
+		const htmlElement = document.documentElement;
+
+		// Initialize theme from localStorage
+		const savedTheme = localStorage.getItem('theme') || 'light';
+		if (savedTheme === 'dark') {
+			document.body.classList.add('dark-mode');
+			themeToggle.classList.add('active');
+		}
+
+		themeToggle.addEventListener('click', () => {
+			document.body.classList.toggle('dark-mode');
+			themeToggle.classList.toggle('active');
+			const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
+			localStorage.setItem('theme', theme);
+		});
+
+		// Hamburger Menu Toggle
+		const hamburger = document.getElementById('hamburger');
+		const offcanvasMenu = new bootstrap.Offcanvas(document.getElementById('offcanvasMenu'));
+
+		hamburger.addEventListener('click', () => {
+			hamburger.classList.toggle('active');
+			offcanvasMenu.toggle();
+		});
+
+		document.getElementById('offcanvasMenu').addEventListener('hidden.bs.offcanvas', () => {
+			hamburger.classList.remove('active');
+		});
+
+		// Scroll Progress Bar
+		const scrollProgress = document.querySelector('.scroll-progress');
+		window.addEventListener('scroll', () => {
+			const windowHeight = document.documentElement.scrollHeight - window.innerHeight;
+			const scrolled = (window.scrollY / windowHeight) * 100;
+			scrollProgress.style.width = scrolled + '%';
+		});
+
+		// Navbar Hide/Show on Scroll
+		const navbar = document.querySelector('.navbar-premium');
+		let lastScrollTop = 0;
+
+		window.addEventListener('scroll', () => {
+			const scrollTop = window.scrollY;
+			const isScrollingDown = scrollTop > lastScrollTop;
+
+			if (scrollTop > 100) {
+				navbar.classList.add('scroll-active');
+				if (isScrollingDown) {
+					navbar.classList.add('hide');
+				} else {
+					navbar.classList.remove('hide');
+				}
+			} else {
+				navbar.classList.remove('scroll-active');
+				navbar.classList.remove('hide');
+			}
+
+			lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+		});
+
+		// Bootstrap ScrollSpy
+		const navLinks = document.querySelectorAll('.nav-links a');
+		window.addEventListener('scroll', () => {
+			let current = '';
+			const sections = document.querySelectorAll('section');
+
+			sections.forEach(section => {
+				const sectionTop = section.offsetTop;
+				if (scrollTop >= sectionTop - 100) {
+					current = section.getAttribute('id');
+				}
+			});
+
+			navLinks.forEach(link => {
+				link.classList.remove('active');
+				if (link.getAttribute('href').slice(1) === current) {
+					link.classList.add('active');
+				}
+			});
+		});
+
+		// Smooth Scroll for Anchor Links
+		document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+			anchor.addEventListener('click', function (e) {
+				const href = this.getAttribute('href');
+				if (href !== '#') {
+					e.preventDefault();
+					const target = document.querySelector(href);
+					if (target) {
+						target.scrollIntoView({ behavior: 'smooth' });
+					}
+				}
+			});
+		});
+
+		// Keyboard Accessibility for Theme Toggle
+		themeToggle.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				themeToggle.click();
+			}
+		});
+
+		// Keyboard Accessibility for Hamburger
+		hamburger.addEventListener('keydown', (e) => {
+			if (e.key === 'Enter' || e.key === ' ') {
+				e.preventDefault();
+				hamburger.click();
+			}
+		});
+	</script>
+</body>
+</html>
